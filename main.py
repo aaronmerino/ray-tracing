@@ -10,8 +10,8 @@ import math
 
 from tkinter import Tk, Canvas, Frame, BOTH
 
-WIDTH = 400
-HEIGHT = 400
+WIDTH = 800
+HEIGHT = 800
 MAX_RENDER_DIST = 1000000
 
 class Scene:
@@ -40,7 +40,7 @@ class Scene:
               normal = n
           
           if (hit_obj is not None):
-            ambient_light_intensity = Color(10, 25, 40).normalize()
+            ambient_light_intensity = Color(10, 45, 80).normalize()
 
             # default ambient color
             pixel_color = hit_obj.color.normalize() * ambient_light_intensity
@@ -62,7 +62,7 @@ class Scene:
           
           else:
             # default background color
-            pixel_color = Color(10, 25, 40).normalize()
+            pixel_color = Color(10, 45, 80).normalize()
           
           # if (hit_obj is not None):
           #   # print((pixel_color.red, pixel_color.green, pixel_color.blue))
@@ -73,8 +73,8 @@ class Scene:
 
             
 if __name__ == "__main__":
-  cam_pos = Vec3(0,-300,-120)
-  cam_dir = Vec3(0,1,0.5)
+  cam_pos = Vec3(0,-100,-50)
+  cam_dir = Vec3(0,1,0.2)
   camera = Camera(WIDTH, HEIGHT, 400, cam_pos, cam_dir)
 
   scene_objects = []
@@ -82,22 +82,22 @@ if __name__ == "__main__":
   scene_objects.append(Sphere(Color(255, 120, 255), Vec3(-12, 60, -20), 10))
   scene_objects.append(Sphere(Color(255, 120, 255), Vec3(-12, 60, 20), 10))
   scene_objects.append(Sphere(Color(255, 120, 255), Vec3(12, 60, 20), 10))
-  scene_objects.append(Sphere(Color(255, 120, 255), Vec3(-12, 80, 40), 10))
+  scene_objects.append(Sphere(Color(0, 0, 255), Vec3(-12, 80, 40), 10))
 
   scene_objects.append(Triangle(Color(255, 120, 50), Vec3(0, 60, -30), Vec3(40, 60, -20), Vec3(10, 60, 10)))
   scene_objects.append(Triangle(Color(255, 120, 50), Vec3(0, 60, -30), Vec3(40, 60, -20), Vec3(10, 60, 10)))
   scene_objects.append(Triangle(Color(255, 120, 50), Vec3(0, 60, -30), Vec3(10, 40, -50), Vec3(40, 60, -20)))
 
-  scene_objects.append(Triangle(Color(255, 120, 50), Vec3(-50, 20, -80), Vec3(50, 20, -80), Vec3(-50, 200, -80)))
-  scene_objects.append(Triangle(Color(255, 120, 50), Vec3(50, 20, -80), Vec3(50, 200, -80), Vec3(-50, 200, -80)))
+  scene_objects.append(Triangle(Color(50, 120, 250), Vec3(-50, 20, -80), Vec3(50, 20, -80), Vec3(-50, 200, -80)))
+  scene_objects.append(Triangle(Color(50, 120, 250), Vec3(50, 20, -80), Vec3(50, 200, -80), Vec3(-50, 200, -80)))
 
   scene_objects.append(Triangle(Color(255, 120, 50), Vec3(-50, 20, 100), Vec3(-50, 200, 100), Vec3(50, 20, 100)))
   scene_objects.append(Triangle(Color(255, 120, 50), Vec3(50, 20, 100), Vec3(-50, 200, 100), Vec3(50, 200, 100)))
 
   scene_lights = []
-  scene_lights.append(PointLight(Vec3(300, 10, 500), Color(255, 255, 255)))
+  scene_lights.append(PointLight(Vec3(300, 10, 500), Color(455, 50, 255)))
 
-  scene_lights.append(PointLight(Vec3(-300, 10, -200), Color(0, 255, 255)))
+  scene_lights.append(PointLight(Vec3(-300, 10, -200), Color(0, 250, 0)))
 
 
   scene = Scene(scene_objects, scene_lights, camera)

@@ -1,8 +1,8 @@
 class Color:
   def __init__(self, red: float, green: float, blue: float):
-    self.red = red
-    self.green = green
-    self.blue = blue
+    self.red = min(red, 500)
+    self.green = min(green, 500)
+    self.blue = min(blue, 500)
 
   def normalize(self):
     max_value = 500
