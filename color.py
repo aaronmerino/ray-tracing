@@ -5,13 +5,9 @@ class Color:
     self.blue = blue
 
   def normalize(self):
-    max_value = max(self.red, self.green, self.blue)
+    max_value = 500
 
     if (max_value != 0):
-      self.red /= max_value
-      self.green /= max_value
-      self.blue /= max_value
-
       return Color(self.red / max_value, self.green / max_value, self.blue / max_value)
     else:
       return Color(self.red, self.green, self.blue)
@@ -41,3 +37,6 @@ class Color:
       return self.multiply(a)
     else:
       raise TypeError("Must multiply two Color objects")
+  
+  def __str__(self):
+    return f"Color: {self.red}, {self.green}, {self.blue}"

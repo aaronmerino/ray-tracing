@@ -40,7 +40,7 @@ class Scene:
               normal = n
           
           if (hit_obj is not None):
-            ambient_light_intensity = Color(0, 0, 255).normalize()
+            ambient_light_intensity = Color(100, 0, 0).normalize()
 
             # default ambient color
             pixel_color = hit_obj.color.normalize() * ambient_light_intensity
@@ -64,7 +64,9 @@ class Scene:
             # default background color
             pixel_color = Color(10, 10, 10).normalize()
           
-          
+          # if (hit_obj is not None):
+          #   # print((pixel_color.red, pixel_color.green, pixel_color.blue))
+
           # apply pixel_color to canvas at position (i, j)
           pixel_color_hex = "#%02x%02x%02x" % (int(min(pixel_color.red*255, 255)), int(min(pixel_color.green*255, 255)), int(min(pixel_color.blue*255, 255)))
           canvas.create_rectangle((i, j)*2, outline="", fill=pixel_color_hex)
@@ -94,6 +96,8 @@ if __name__ == "__main__":
 
   scene_lights = []
   scene_lights.append(PointLight(Vec3(300, 10, 500), Color(255, 255, 255)))
+
+  scene_lights.append(PointLight(Vec3(-300, 10, -500), Color(0, 255, 255)))
 
 
   scene = Scene(scene_objects, scene_lights, camera)
