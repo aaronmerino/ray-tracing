@@ -40,7 +40,7 @@ class Scene:
               normal = n
           
           if (hit_obj is not None):
-            ambient_light_intensity = Color(100, 0, 0).normalize()
+            ambient_light_intensity = Color(10, 25, 40).normalize()
 
             # default ambient color
             pixel_color = hit_obj.color.normalize() * ambient_light_intensity
@@ -62,7 +62,7 @@ class Scene:
           
           else:
             # default background color
-            pixel_color = Color(10, 10, 10).normalize()
+            pixel_color = Color(10, 25, 40).normalize()
           
           # if (hit_obj is not None):
           #   # print((pixel_color.red, pixel_color.green, pixel_color.blue))
@@ -73,9 +73,9 @@ class Scene:
 
             
 if __name__ == "__main__":
-  cam_pos = Vec3(0,-100,-20)
+  cam_pos = Vec3(0,-300,-120)
   cam_dir = Vec3(0,1,0.5)
-  camera = Camera(WIDTH, HEIGHT, 200, cam_pos, cam_dir)
+  camera = Camera(WIDTH, HEIGHT, 400, cam_pos, cam_dir)
 
   scene_objects = []
   scene_objects.append(Sphere(Color(255, 120, 255), Vec3(0, 100, 0), 50))
@@ -97,7 +97,7 @@ if __name__ == "__main__":
   scene_lights = []
   scene_lights.append(PointLight(Vec3(300, 10, 500), Color(255, 255, 255)))
 
-  scene_lights.append(PointLight(Vec3(-300, 10, -500), Color(0, 255, 255)))
+  scene_lights.append(PointLight(Vec3(-300, 10, -200), Color(0, 255, 255)))
 
 
   scene = Scene(scene_objects, scene_lights, camera)
