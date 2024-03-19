@@ -92,11 +92,11 @@ if __name__ == "__main__":
   camera = Camera(WIDTH, HEIGHT, 400, cam_pos, cam_dir)
 
   scene_objects = []
-  scene_objects.append(Sphere(Color(255, 120, 255), Color(150, 150, 150), 100, Vec3(0, 100, 0), 50))
-  scene_objects.append(Sphere(Color(255, 120, 255), Color(150, 150, 150), 100, Vec3(-12, 60, -20), 10))
-  scene_objects.append(Sphere(Color(255, 120, 255), Color(150, 150, 150), 100, Vec3(-12, 60, 20), 10))
-  scene_objects.append(Sphere(Color(255, 120, 255), Color(150, 150, 150), 100, Vec3(12, 60, 20), 10))
-  scene_objects.append(Sphere(Color(0, 0, 255), Color(150, 150, 150), 1000, Vec3(-12, 80, 40), 10))
+  scene_objects.append(Sphere(Color(255, 120, 255), Color(100, 150, 450), 50, Vec3(0, 100, 0), 50))
+  scene_objects.append(Sphere(Color(255, 120, 255), Color(150, 150, 150), 80, Vec3(-12, 60, -20), 10))
+  scene_objects.append(Sphere(Color(255, 120, 255), Color(150, 150, 150), 80, Vec3(-12, 60, 20), 10))
+  scene_objects.append(Sphere(Color(255, 120, 255), Color(150, 150, 150), 80, Vec3(12, 60, 20), 10))
+  scene_objects.append(Sphere(Color(0, 0, 255), Color(150, 150, 150), 100, Vec3(-12, 80, 40), 10))
 
   scene_objects.append(Triangle(Color(255, 120, 50), Color(150, 150, 150), 100, Vec3(0, 60, -30), Vec3(40, 60, -20), Vec3(10, 60, 10)))
   scene_objects.append(Triangle(Color(255, 120, 50), Color(150, 150, 150), 100, Vec3(0, 60, -30), Vec3(40, 60, -20), Vec3(10, 60, 10)))
@@ -109,9 +109,9 @@ if __name__ == "__main__":
   scene_objects.append(Triangle(Color(255, 120, 50), Color(150, 150, 150), 100, Vec3(50, 20, 100), Vec3(-50, 200, 100), Vec3(50, 200, 100)))
 
   scene_lights = []
-  scene_lights.append(PointLight(Vec3(300, 10, 500), Color(455, 50, 255)))
+  scene_lights.append(PointLight(Vec3(300, 10, 500), Color(455/2, 150/2, 55/2)))
 
-  scene_lights.append(PointLight(Vec3(-300, 10, -200), Color(0, 250, 0)))
+  scene_lights.append(PointLight(Vec3(-300, 10, -200), Color(0, 250, 120)))
 
 
   scene = Scene(scene_objects, scene_lights, camera)
