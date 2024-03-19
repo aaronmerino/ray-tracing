@@ -4,8 +4,8 @@ from ray import Ray
 from surface import Surface
 
 class Triangle(Surface):
-  def __init__(self, color: Color, a: Vec3, b: Vec3, c: Vec3) -> None:
-    super().__init__(color)
+  def __init__(self, diffuse_color: Color, specular_color: Color, phong_exp: int, a: Vec3, b: Vec3, c: Vec3) -> None:
+    super().__init__(diffuse_color, specular_color, phong_exp)
 
     self.a = a
     self.b = b

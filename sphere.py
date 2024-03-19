@@ -5,8 +5,8 @@ from surface import Surface
 import math
 
 class Sphere(Surface):
-  def __init__(self, color: Color, centre: Vec3, radius: int) -> None:
-    super().__init__(color)
+  def __init__(self, diffuse_color: Color, specular_color: Color, phong_exp: int, centre: Vec3, radius: int) -> None:
+    super().__init__(diffuse_color, specular_color, phong_exp)
 
     self.centre = centre
     self.radius = radius
