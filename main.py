@@ -87,8 +87,9 @@ class Scene:
 
             
 if __name__ == "__main__":
-  cam_pos = Vec3(0,-100,-50)
-  cam_dir = Vec3(0,1,0.2)
+  # cam_pos = Vec3(0,-100,-50)
+  cam_pos = Vec3(220,20,100)
+  cam_dir = Vec3(-1,0.4,-0.5)
   camera = Camera(WIDTH, HEIGHT, 400, cam_pos, cam_dir)
 
   scene_objects = []
@@ -105,13 +106,13 @@ if __name__ == "__main__":
   scene_objects.append(Triangle(Color(50, 120, 250), Color(150, 150, 150), 100, Vec3(-50, 20, -80), Vec3(50, 20, -80), Vec3(-50, 200, -80)))
   scene_objects.append(Triangle(Color(50, 120, 250), Color(150, 150, 150), 100, Vec3(50, 20, -80), Vec3(50, 200, -80), Vec3(-50, 200, -80)))
 
-  scene_objects.append(Triangle(Color(255, 120, 50), Color(150, 150, 150), 100, Vec3(-50, 20, 100), Vec3(-50, 200, 100), Vec3(50, 20, 100)))
-  scene_objects.append(Triangle(Color(255, 120, 50), Color(150, 150, 150), 100, Vec3(50, 20, 100), Vec3(-50, 200, 100), Vec3(50, 200, 100)))
+  scene_objects.append(Triangle(Color(255, 120, 50), Color(150, 150, 150), 100, Vec3(-50, 20, 80), Vec3(-50, 200, 80), Vec3(50, 20, 80)))
+  scene_objects.append(Triangle(Color(255, 120, 50), Color(150, 150, 150), 100, Vec3(50, 20, 80), Vec3(-50, 200, 80), Vec3(50, 200, 80)))
 
   scene_lights = []
   scene_lights.append(PointLight(Vec3(300, 10, 500), Color(455/2, 150/2, 55/2)))
 
-  scene_lights.append(PointLight(Vec3(-300, 10, -200), Color(0, 250, 120)))
+  scene_lights.append(PointLight(Vec3(-200, 10, -50), Color(0, 250, 220)))
 
 
   scene = Scene(scene_objects, scene_lights, camera)
