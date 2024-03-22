@@ -12,6 +12,7 @@ from tkinter import Tk, Canvas, Frame, BOTH
 
 WIDTH = 400
 HEIGHT = 400
+MAX_RAY_BOUNCE = 20
 MAX_RENDER_DIST = 1000000
 
 class Scene:
@@ -40,75 +41,76 @@ class Scene:
     def render(self, canvas):
       for i in range(0, WIDTH):
         for j in range(0, HEIGHT):
-          view_ray = self.camera.generate_view_ray(i, j)
 
-          # t1 = math.inf
-          # hit_obj = None
-          # normal = None
-          t1, hit_obj, normal = self.hit(view_ray, 0)
+          current_ray = self.camera.generate_view_ray(i, j)
+          pixel_color = Color(0, 0, 0)
+          current_spec = None
+          ray_depth = 0
 
-          pixel_color = None
+          while (ray_depth < MAX_RAY_BOUNCE):
+            
+            t1, hit_obj, normal = None, None, None
 
-          # for o in self.objects:
+            if (ray_depth == 0):
+              t1, hit_obj, normal = self.hit(current_ray, 0)
+            else:
+              t1, hit_obj, normal = self.hit(current_ray, 0.001)  
 
-          #   hit, t, n = o.hit(view_ray, 0, t1)
+            if (hit_obj is not None):
+              ambient_light_intensity = Color(20, 85, 120).normalize()
 
-          #   if (hit):
-          #     t1 = t
-          #     hit_obj = o
-          #     normal = n
-          
-          if (hit_obj is not None):
-            ambient_light_intensity = Color(20, 85, 120).normalize()
+              # default ambient color
+              pixel_color += hit_obj.diffuse_color.normalize() * ambient_light_intensity
 
-            # default ambient color
-            pixel_color = hit_obj.diffuse_color.normalize() * ambient_light_intensity
+              # now go through each light source
+              for light in self.lights:
+                # check if in shadow first:
+                hit_position = current_ray.getPoint(t1)
+                light_direction = (light.position - hit_position).normalize()
 
-            # now go through each light source
-            for light in self.lights:
-              # check if in shadow first:
-              hit_position = view_ray.getPoint(t1)
-              light_direction = (light.position - hit_position).normalize()
+                ray_light = Ray(hit_position, light_direction)
 
-              ray_light = Ray(hit_position, light_direction)
+                _, hit_shadow, _ = self.hit(ray_light, 0.001)
+                if (hit_shadow is not None):
+                  continue
 
-              _, hit_shadow, _ = self.hit(ray_light, 0.01)
-              if (hit_shadow is not None):
-                continue
+                diff_coef = hit_obj.diffuse_color.normalize()
 
-              diff_coef = hit_obj.diffuse_color.normalize()
+                light_intensitiy = light.color.normalize()
 
-              light_intensitiy = light.color.normalize()
+                lambart = max(0, normal.dot(light_direction))
 
-              # hit_position = view_ray.getPoint(t1)
+                lambart_intensity = Color(lambart, lambart, lambart)
 
-              # light_direction = (light.position - hit_position).normalize()
-
-              lambart = max(0, normal.dot(light_direction))
-
-              lambart_intensity = Color(lambart, lambart, lambart)
-
-              camera_direction = (view_ray.direction.normalize()).scale(-1)
-              
-              pixel_color += (diff_coef*light_intensitiy)*lambart_intensity
+                camera_direction = (current_ray.direction.normalize()).scale(-1)
+                
+                pixel_color += (diff_coef*light_intensitiy)*lambart_intensity
 
 
-              spec_coef = hit_obj.specular_color.normalize()
+                spec_coef = hit_obj.specular_color.normalize()
 
-              half_vector = (light_direction + camera_direction).normalize()
+                half_vector = (light_direction + camera_direction).normalize()
 
-              phong = max(0, normal.dot(half_vector)) ** hit_obj.phong_exp
+                phong = max(0, normal.dot(half_vector)) ** hit_obj.phong_exp
 
-              phong_intensity = Color(phong, phong, phong)
+                phong_intensity = Color(phong, phong, phong)
 
-              pixel_color += (spec_coef*light_intensitiy)*phong_intensity
-          
-          else:
-            # default background color
-            pixel_color = Color(10, 45, 80).normalize()
-          
-          # if (hit_obj is not None):
-          #   # print((pixel_color.red, pixel_color.green, pixel_color.blue))
+                
+                if (ray_depth == 0):
+                  pixel_color += (spec_coef*light_intensitiy)*phong_intensity
+                else:
+                  pixel_color += ((spec_coef*light_intensitiy)*phong_intensity)*current_spec
+
+
+              reflection_dir = current_ray.direction - normal.scale(2*(current_ray.direction.dot(normal)))
+              current_ray = Ray(current_ray.getPoint(t1), reflection_dir)
+              current_spec = hit_obj.specular_color.normalize()
+              ray_depth += 1
+            else:
+              # default background color
+              pixel_color += Color(10, 45, 80).normalize()
+              break
+
 
           # apply pixel_color to canvas at position (i, j)
           pixel_color_hex = "#%02x%02x%02x" % (int(min(pixel_color.red*255, 255)), int(min(pixel_color.green*255, 255)), int(min(pixel_color.blue*255, 255)))
